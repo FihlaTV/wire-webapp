@@ -32,12 +32,12 @@ describe('z.storage.StorageRepository', () => {
   });
 
   beforeEach(() => {
-    TestFactory.storage_repository.clear_all_stores();
+    TestFactory.storage_repository.clearStores();
   });
 
   describe('save', () => {
     it('does not save "null" values', done => {
-      TestFactory.storage_service
+      TestFactory.storageService
         .save(z.storage.StorageService.OBJECT_STORE.AMPLIFY, 'primary_key', null)
         .then(done.fail)
         .catch(error => {

@@ -84,12 +84,12 @@ window.TestFactory.prototype.exposeStorageActors = function() {
   this.logger.info('- exposeStorageActors');
   return Promise.resolve()
     .then(() => {
-      TestFactory.storage_service = new z.storage.StorageService();
-      TestFactory.storage_service.logger.level = this.settings.logging_level;
-      return TestFactory.storage_service.init(entities.user.john_doe.id);
+      TestFactory.storageService = new z.storage.StorageService();
+      TestFactory.storageService.logger.level = this.settings.logging_level;
+      return TestFactory.storageService.init(entities.user.john_doe.id);
     })
     .then(() => {
-      TestFactory.storage_repository = new z.storage.StorageRepository(TestFactory.storage_service);
+      TestFactory.storage_repository = new z.storage.StorageRepository(TestFactory.storageService);
       TestFactory.storage_repository.logger.level = this.settings.logging_level;
       return TestFactory.storage_repository;
     });
@@ -117,7 +117,7 @@ window.TestFactory.prototype.exposeCryptographyActors = function() {
       TestFactory.cryptography_repository.current_client = ko.observable(current_client);
       TestFactory.cryptography_repository.logger.level = this.settings.logging_level;
 
-      return TestFactory.cryptography_repository.create_cryptobox(TestFactory.storage_service.db);
+      return TestFactory.cryptography_repository.create_cryptobox(TestFactory.storageService.db);
     })
     .then(() => TestFactory.cryptography_repository);
 };
@@ -147,7 +147,7 @@ window.TestFactory.prototype.exposeClientActors = function() {
       user.name(entities.user.john_doe.name);
       user.phone(entities.user.john_doe.phone);
 
-      TestFactory.client_service = new z.client.ClientService(this.client, TestFactory.storage_service);
+      TestFactory.client_service = new z.client.ClientService(this.client, TestFactory.storageService);
       TestFactory.client_service.logger.level = this.settings.logging_level;
 
       TestFactory.client_repository = new z.client.ClientRepository(
@@ -186,15 +186,15 @@ window.TestFactory.prototype.exposeEventActors = function() {
     .then(() => {
       this.logger.info('✓ exposedCryptographyActors');
 
-      TestFactory.web_socket_service = new z.event.WebSocketService(this.client, TestFactory.storage_service);
+      TestFactory.web_socket_service = new z.event.WebSocketService(this.client, TestFactory.storageService);
       TestFactory.web_socket_service.logger.level = this.settings.logging_level;
 
-      TestFactory.notification_service = new z.event.NotificationService(this.client, TestFactory.storage_service);
+      TestFactory.notification_service = new z.event.NotificationService(this.client, TestFactory.storageService);
       TestFactory.notification_service.logger.level = this.settings.logging_level;
 
       TestFactory.conversation_service = new z.conversation.ConversationService(
         this.client,
-        TestFactory.storage_service
+        TestFactory.storageService
       );
       TestFactory.conversation_service.logger.level = this.settings.logging_level;
 
@@ -329,7 +329,7 @@ window.TestFactory.prototype.exposeConversationActors = function() {
 
       TestFactory.conversation_service = new z.conversation.ConversationService(
         this.client,
-        TestFactory.storage_service
+        TestFactory.storageService
       );
       TestFactory.conversation_service.logger.level = this.settings.logging_level;
 

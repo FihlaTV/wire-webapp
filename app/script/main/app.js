@@ -683,7 +683,7 @@ z.main.App = class App {
       // Clear IndexedDB
       if (clear_data) {
         this.repository.storage
-          .delete_everything()
+          .deleteDB()
           .catch(error => this.logger.error('Failed to delete database before logout', error))
           .then(() => {
             amplify.publish(z.event.WebApp.LIFECYCLE.SIGNED_OUT, clear_data);

@@ -27,7 +27,7 @@ describe('ConversationRepository', () => {
   let conversation_et = null;
   let self_user_et = null;
   let server = null;
-  let storage_service = null;
+  const storage_service = null;
 
   const _find_conversation = (conversation, conversations) => {
     return ko.utils.arrayFirst(conversations(), _conversation => _conversation.id === conversation.id);
@@ -76,7 +76,7 @@ describe('ConversationRepository', () => {
           z.event.WebApp.EVENT.NOTIFICATION_HANDLING_STATE,
           z.event.NOTIFICATION_HANDLING_STATE.WEB_SOCKET
         );
-        ({storage_service} = conversation_repository.conversation_service);
+        ({storage_service: storageService} = conversation_repository.conversation_service);
 
         conversation_et = _generate_conversation(z.conversation.ConversationType.SELF);
         conversation_et.id = payload.conversations.knock.post.conversation;
@@ -101,7 +101,7 @@ describe('ConversationRepository', () => {
 
   afterEach(() => {
     server.restore();
-    storage_service.clear_all_stores();
+    storage_service.clearStores();
     jQuery.ajax.restore();
     TestFactory.conversation_repository.conversations.removeAll();
   });
