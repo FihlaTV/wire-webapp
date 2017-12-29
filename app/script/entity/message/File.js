@@ -25,7 +25,7 @@ window.z.entity = z.entity || {};
 z.entity.File = class File extends z.entity.Asset {
   constructor(id) {
     super(id);
-    this.cancel_download = this.cancel_download.bind(this);
+    this.cancelDownload = this.cancelDownload.bind(this);
 
     this.type = z.assets.AssetType.FILE;
     this.logger = new z.util.Logger('z.entity.File', z.config.LOGGER.OPTIONS);
@@ -45,9 +45,9 @@ z.entity.File = class File extends z.entity.Asset {
     this.preview_resource = ko.observable();
 
     this.download = this.download.bind(this);
-    this.download_progress = ko.pureComputed(() => {
+    this.downloadProgress = ko.pureComputed(() => {
       if (this.original_resource()) {
-        return this.original_resource().download_progress();
+        return this.original_resource().downloadProgress();
       }
 
       return undefined;
@@ -151,7 +151,7 @@ z.entity.File = class File extends z.entity.Asset {
 
   cancel_download() {
     this.status(z.assets.AssetTransferState.UPLOADED);
-    return this.original_resource().cancel_download();
+    return this.original_resource().cancelDownload();
   }
 
   cancel(message_et) {
