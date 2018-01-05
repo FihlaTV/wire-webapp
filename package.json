@@ -1,5 +1,5 @@
 {
-  "name": "wire-webapp",
+  "name": "Airlips-webapp",
   "license": "GPL-3.0",
   "dependencies": {
     "@bower_components/amplify": "wireapp/amplify#v1.1.6",
